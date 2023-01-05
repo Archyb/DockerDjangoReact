@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  django:
+    build: ./back
+    container_name: react-dashboard
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src:/drf
+      - static:/srv/app/static
+      - media:/srv/app/media
+
+  react:
+    build: ./front
+    container_name: dev-react
+    command: npm start
+    ports:
+      - 3000:3000
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./front/:/srv/app
+      - /srv/app/node_modules
+    depends_on:
+      - django
+
+  nginx:
+    build: ./nginx
+    container_name: dev-nginx
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - static:/srv/app/static
+      - media:/srv/app/media
+    depends_on:
+      - django
+      - react
+
+
+volumes:
+  media:
+  static:

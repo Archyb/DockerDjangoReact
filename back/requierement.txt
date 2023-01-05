@@ -1,0 +1,10 @@
+asgiref==3.6.0
+Django==4.1.4
+django-cors-headers==3.13.0
+django-rest-framework-nested==0.0.1
+djangorestframework==3.14.0
+djangorestframework-jsonapi==6.0.0
+drf-extensions==0.7.1
+inflection==0.5.1
+pytz==2022.7
+sqlparse==0.4.3
