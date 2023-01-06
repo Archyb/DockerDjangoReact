@@ -58,7 +58,7 @@ const DialogFormProject = (props) => {
         setClientId(clientId)
         setProject({...project, dev: user.id,client:clientId})
         console.log(clientId)
-    }, [clientId])
+    }, [clientId, data, dispatch, project, user.id]);
 
     return (
         <div>

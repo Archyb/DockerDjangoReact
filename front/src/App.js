@@ -3,8 +3,8 @@ import Dashboard from "./Layout/Dashboard";
 
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import {connect, useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {connect} from "react-redux";
+import {useEffect} from "react";
 import SignIn from "./Pages/SignIn";
 import Client from "./Pages/Client";
 import Projects from "./Pages/Projects";
@@ -18,7 +18,6 @@ const mapStateToProps = (state) => {
 
 const App = (props) => {
 
-    const [isAuth, setIsAuth] = useState(false)
 
     useEffect(() => {
 
