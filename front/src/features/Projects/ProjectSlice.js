@@ -1,28 +1,19 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import projectService from "../../Services/projects.services";
-import {fetchClient} from "../Client/ClientSlice";
+
 import {useSelector} from "react-redux";
 
 
-const projects = localStorage.getItem("projects")
-const initialState = projects ? {projects} : {
-    projects: []
+const initialState = {
+    projects: [], projectInUse: {}
 }
 export const fetchProjectsByUserId = createAsyncThunk(
     "project/fetchProjectsByUserId",
     async (userid, thunkAPI) => {
         try {
             const response = await projectService.fetchProjectsByUserId(userid);
-
             return response;
         } catch (error) {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
-
             return thunkAPI.rejectWithValue();
         }
     }
@@ -32,23 +23,20 @@ export const addProject = createAsyncThunk(
     async (project, thunkAPI) => {
         try {
             const response = await projectService.addProject(project);
-
-            const userid = useSelector(state => state.user.user.id)
-
-
             return response;
         } catch (error) {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
-
-            return thunkAPI.rejectWithValue();
+            return thunkAPI.rejectWithValue("not added");
         }
     }
 );
+export const fetchProjectInUse = createAsyncThunk("project/fetchProjectInUse", async (projectID, thunkAPI) => {
+    try {
+        const response = await projectService.getProjectById(projectID);
+        return response;
+    } catch (error) {
+        return thunkAPI.rejectWithValue("not found");
+    }
+})
 export const projectSlice = createSlice(
     {
         name: "project",
@@ -61,6 +49,9 @@ export const projectSlice = createSlice(
                 })
                 .addCase(addProject.fulfilled, (state, action) => {
                     state.projects.push(action.payload);
+                })
+                .addCase(fetchProjectInUse.fulfilled, (state, action) => {
+                    state.projectInUse = action.payload;
                 })
 
 

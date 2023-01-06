@@ -1,4 +1,4 @@
-import {connect, useDispatch} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import {useEffect, useState} from "react";
@@ -21,6 +21,8 @@ const Projects = (props) => {
     const [projects, setProjects] = useState([])
     const [openInvoicemodal, setOpenInvoiceModal] = useState(false)
     const[openClientModal, setOpenClientModal] = useState(false)
+    const [invoice, setInvoice] = useState({})
+    const [client, setClient] = useState({})
     const dispatch = useDispatch()
     const handleOpenModalForm = () => {
         setAddProject(true)
@@ -28,6 +30,8 @@ const Projects = (props) => {
     const handleOpenInvoice = () => {
         setOpenInvoiceModal(true)
     }
+
+    //use selector user id
     const handleOpenClient = () => {
         setOpenClientModal(true)
         dispatch(getClientByid(15));
@@ -35,8 +39,11 @@ const Projects = (props) => {
     const [addProject, setAddProject] = useState(false)
     useEffect(() => {
         setProjects(props.projects)
+      
     }, [props.projects])
-
+    const projectInUse=useSelector(state=>state.project.projectInUse);
+    console.log("invoice:"+projectInUse.invoice)
+    console.log("client"+projectInUse.client)
     return (
 
         <Grid container spacing={4}>

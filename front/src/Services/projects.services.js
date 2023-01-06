@@ -8,10 +8,10 @@ const config = {
 };
 
 const fetchProjectsByUserId = (userid) => {
-    let project = {id: "",name: "", description: "", technology: "",isOver:""};
+    let project = {id: "", name: "", description: "", technology: "", isOver: ""};
     const projects = [];
 
-        return axios
+    return axios
         .get(API_URL + "fetchproject?dev=15",)
         .then((response) => {
             response.data.map((i) => {
@@ -37,9 +37,19 @@ const addProject = (project) => {
         });
 };
 
+const getProjectById = (id) => {
+    const projects = [];
+    return axios
+        .get(API_URL + "projects/" + id + "/")
+        .then((response) => {
+            return response.data
+        })
+
+}
 const projectService = {
     fetchProjectsByUserId,
-    addProject
+    addProject,
+    getProjectById
 }
 
 export default projectService
