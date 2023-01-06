@@ -8,7 +8,9 @@ import Button from "@mui/material/Button";
 import DialogFormProject from "../Components/Projects/DialogFormProject";
 import DialogInvoice from "../Components/Invoices/DialogInvoice";
 import DialogClientDataModal from "../Components/Clients/ClientDataModal";
-import {getClientByid, setClientInUse} from "../features/Client/ClientSlice";
+import {fetchClientInUse, getClientByid, setClientInUse} from "../features/Client/ClientSlice";
+import clientServices from "../Services/client.services";
+import {invoiceService} from "../Services/invoice.service";
 
 
 const mapStateToProps = (state) => {
@@ -21,7 +23,9 @@ const Projects = (props) => {
     const [projects, setProjects] = useState([])
     const [openInvoicemodal, setOpenInvoiceModal] = useState(false)
     const[openClientModal, setOpenClientModal] = useState(false)
-    const [invoice, setInvoice] = useState({})
+    const projectInUse=useSelector(state=>state.project.projectInUse);
+    const currentClient =useSelector(state=>state.client.clientInUse)
+    const[invoiceInUse, setInvoiceInUse]=useState({})
     const [client, setClient] = useState({})
     const dispatch = useDispatch()
     const handleOpenModalForm = () => {
@@ -39,11 +43,10 @@ const Projects = (props) => {
     const [addProject, setAddProject] = useState(false)
     useEffect(() => {
         setProjects(props.projects)
-      
+        setClient(currentClient)
     }, [props.projects])
-    const projectInUse=useSelector(state=>state.project.projectInUse);
-    console.log("invoice:"+projectInUse.invoice)
-    console.log("client"+projectInUse.client)
+
+    console.log(currentClient)
     return (
 
         <Grid container spacing={4}>
@@ -67,7 +70,7 @@ const Projects = (props) => {
             <Grid item xs={6}>
                 <Paper sx={{p: 10, display: 'flex', flexDirection: 'column'}}>
                     <Button variant="contained" color="primary" onClick={handleOpenClient}>Check Client</Button>
-                    <DialogClientDataModal open={openClientModal} setOpen={setOpenClientModal}/>
+                    <DialogClientDataModal open={openClientModal} setOpen={setOpenClientModal } client={client}/>
                 </Paper>
             </Grid>
         </Grid>)

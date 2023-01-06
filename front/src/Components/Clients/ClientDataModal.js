@@ -9,14 +9,13 @@ import Button from "@mui/material/Button";
 import * as React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Divider from "@mui/material/Divider";
+import {useEffect} from "react";
 
 
 
 
 const DialogClientDataModal= (props) => {
 
-
-    const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -32,8 +31,8 @@ const DialogClientDataModal= (props) => {
         props.setOpen(false);
     };
 
-    const Client=useSelector(state => state.client.clientInUse);
 
+    console.log(props.client)
 
     return (
         <div>
@@ -55,24 +54,24 @@ const DialogClientDataModal= (props) => {
                     <Grid sm={12} sx={{mt: 3}}>
                         <Typography variant="subtitle1" component="div">
                             Firstname</Typography>
-                        {Client.firstname}
+                        {props.client.firstname}
                     </Grid>
 
                     <Grid sm={12} sx={{mt: 3}}>
                         <Typography variant="subtitle1" component="div">
                             Lastname</Typography>
-                        {Client.firstname}
+                        {props.client.lastname}
                     </Grid>
                     <Grid sm={12} sx={{mt: 3}}>
                         <Typography variant="subtitle1" component="div">
                             Mail</Typography>
-                        {Client.firstname}
+                        {props.client.mail}
                     </Grid>
 
                     <Grid sm={12} sx={{mt: 3}}>
                         <Typography variant="subtitle1" component="div">
                             Phone</Typography>
-                        {Client.firstname}
+                        {props.client.phone}
                     </Grid>
                 </Grid>
 

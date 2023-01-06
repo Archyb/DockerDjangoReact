@@ -42,7 +42,10 @@ const getProjectById = (id) => {
     return axios
         .get(API_URL + "projects/" + id + "/")
         .then((response) => {
-            return response.data
+            const project=response.data
+            const client=response.data.client
+            const invoice=response.data.invoice
+            return {project,client,invoice}
         })
 
 }

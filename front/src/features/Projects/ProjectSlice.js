@@ -2,6 +2,7 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import projectService from "../../Services/projects.services";
 
 import {useSelector} from "react-redux";
+import {getClientByid, setClientInUse} from "../Client/ClientSlice";
 
 
 const initialState = {
@@ -32,7 +33,9 @@ export const addProject = createAsyncThunk(
 export const fetchProjectInUse = createAsyncThunk("project/fetchProjectInUse", async (projectID, thunkAPI) => {
     try {
         const response = await projectService.getProjectById(projectID);
-        return response;
+        console.log(response)
+        thunkAPI.dispatch(getClientByid(response.client));
+        return response.project;
     } catch (error) {
         return thunkAPI.rejectWithValue("not found");
     }

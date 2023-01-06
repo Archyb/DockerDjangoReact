@@ -2,9 +2,11 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 
 import ClientServices from "../../Services/client.services";
 import {login} from "../User/AuthSlice";
+import projectService from "../../Services/projects.services";
+import clientServices from "../../Services/client.services";
 
 
-const initialState = {clients: [], clientInUse: {},allClients:[]};
+const initialState = {clients: [], clientInUse: {}, allClients: []};
 
 export const addClient = createAsyncThunk("client/AddClient",
     async (client, thunkAPI) => {
@@ -20,17 +22,7 @@ export const addClient = createAsyncThunk("client/AddClient",
         }
     }
 )
-export const setClientInUse = createAsyncThunk(
-    "client/setClientInUse",
-    async (userID, thunkAPI) => {
-        try {
-            const response = await ClientServices.getCLientById(userID)
-            return response
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
-    }
-)
+
 
 export const fetchClient = createAsyncThunk(
     "client/fetchClient",
@@ -45,7 +37,6 @@ export const fetchClient = createAsyncThunk(
         }
     }
 )
-
 
 
 export const getAllClients = createAsyncThunk(
@@ -71,33 +62,29 @@ export const clientSlice = createSlice(
             clearClientInUse: (state, action) => {
                 state.clientInUse = {}
             },
-            setClientInUse(state, action) {
-                state.clientInUse = action.payload
-            },
             addClientState(state, action) {
                 state.clients.push(action.payload)
             },
             getClientByid(state, action) {
-                state.clientInUse = state.clients.filter(client => client._id === action.payload)[0]
+                state.clientInUse = state.allClients.filter(client => client.id === action.payload)[0]
             },
+
 
         },
         extraReducers(builder) {
             builder
-                .addCase(setClientInUse.fulfilled, (state, action) => {
-                    state.clientInUse = action.payload
-                }).addCase(fetchClient.fulfilled, (state, action) => {
+                .addCase(fetchClient.fulfilled, (state, action) => {
                     state.clients = action.payload
                 }).addCase(addClient.fulfilled, (state, action) => {
 
                 }).addCase(getAllClients.fulfilled, (state, action) => {
-                    state.allClients = action.payload
-                })
+                state.allClients = action.payload
+            })
 
 
         }
     }
 )
 
-export const {setClients, clearClientInUse,addClientState,getClientByid} = clientSlice.actions
+export const {setClients, clearClientInUse, addClientState, getClientByid} = clientSlice.actions
 
