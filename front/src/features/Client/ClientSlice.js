@@ -24,9 +24,7 @@ export const setClientInUse = createAsyncThunk(
     "client/setClientInUse",
     async (userID, thunkAPI) => {
         try {
-
             const response = await ClientServices.getCLientById(userID)
-            console.log(response + "fetchClient")
             return response
         } catch (error) {
             return thunkAPI.rejectWithValue(error);

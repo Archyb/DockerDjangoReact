@@ -13,7 +13,7 @@ export const fetchProjectsByUserId = createAsyncThunk(
     async (userid, thunkAPI) => {
         try {
             const response = await projectService.fetchProjectsByUserId(userid);
-       //     thunkAPI.dispatch(fetchClient(userid))
+
             return response;
         } catch (error) {
             const message =
@@ -34,7 +34,7 @@ export const addProject = createAsyncThunk(
             const response = await projectService.addProject(project);
 
             const userid = useSelector(state => state.user.user.id)
-            thunkAPI.dispatch(fetchClient(project.dev))
+
 
             return response;
         } catch (error) {

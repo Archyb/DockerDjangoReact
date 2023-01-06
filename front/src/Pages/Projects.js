@@ -35,7 +35,6 @@ const Projects = (props) => {
     const [addProject, setAddProject] = useState(false)
     useEffect(() => {
         setProjects(props.projects)
-        console.log(props.projects)
     }, [props.projects])
 
     return (

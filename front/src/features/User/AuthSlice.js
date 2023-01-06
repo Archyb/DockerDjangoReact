@@ -4,6 +4,7 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import AuthService from "../../Services/auth.services";
 import {fetchProjectsByUserId} from "../Projects/ProjectSlice";
 import {fetchAllInvoices} from "../Invoice/InvoiceSlice";
+import {getAllClients} from "../Client/ClientSlice";
 
 
 export const login = createAsyncThunk("auth/login", async ({username, password}, thunkAPI) => {
@@ -15,6 +16,7 @@ export const login = createAsyncThunk("auth/login", async ({username, password},
         )
         thunkAPI.dispatch(fetchProjectsByUserId(data.id));
         thunkAPI.dispatch(fetchAllInvoices(data.id));
+        thunkAPI.dispatch(getAllClients());
         return {user: data};
     } catch (error) {
         return thunkAPI.rejectWithValue();

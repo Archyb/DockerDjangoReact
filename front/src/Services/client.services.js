@@ -76,7 +76,10 @@ const fetchClientsByUserId = (userid) => {
                     tel: i.tel,
                     url: i.url,
                 }
-                clients.push(client);
+                if(!clients.includes(client)) {
+                    clients.push(client);
+                }
+
             })
 
             return clients;
