@@ -55,7 +55,8 @@ const DialogFormProject = (props) => {
     useEffect(() => {
         dispatch(getAllClients());
         setClients(data);
-        setProject({...project, dev: user.id})
+        setClientId(clientId)
+        setProject({...project, dev: user.id,client:clientId})
         console.log(clientId)
     }, [clientId])
 

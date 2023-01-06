@@ -15,13 +15,15 @@ const fetchProjectsByUserId = (userid) => {
         .get(API_URL + "fetchproject?dev=15",)
         .then((response) => {
             response.data.map((i) => {
-                project.id = i.id;
-                project.name = i.name;
-                project.description = i.description;
-                project.technology = i.technology;
-                project.isOver = i.isOver;
+                const project = {
+                    id: i.id,
+                    name: i.name,
+                    description: i.description,
+                    technology: i.technology,
+                    isOver: i.isOver,
+                }
                 projects.push(project);
-
+                console.log(project)
             });
             return projects
         });
