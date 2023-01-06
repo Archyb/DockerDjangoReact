@@ -13,13 +13,14 @@ import {useEffect, useState} from "react";
 
 import DataTable from "./TableClientProject";
 import {getAllClients} from "../../features/Client/ClientSlice";
-import {addProject} from "../../features/Projects/ProjectSlice";
+import {addProject, fetchProjectsByUserId} from "../../features/Projects/ProjectSlice";
 
 const DialogFormProject = (props) => {
     const [clients, setClients] = useState({});
     const [project, setProject] = useState({});
     const [clientId, setClientId] = useState(0);
-
+    const user= useSelector(state => state.auth.user);
+    const data = useSelector(state => state.client.allClients)
     const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
@@ -27,6 +28,7 @@ const DialogFormProject = (props) => {
 
         setProject({...project, client: clientId})
         dispatch(addProject(project));
+        dispatch(fetchProjectsByUserId(user.id));
         props.setOpen(false);
 
     };
@@ -50,15 +52,15 @@ const DialogFormProject = (props) => {
         props.setOpen(false);
     };
 
-    const data = useSelector(state => state.client.allClients)
-    const user = useSelector(state => state.auth.user)
+
+
     useEffect(() => {
         dispatch(getAllClients());
         setClients(data);
         setClientId(clientId)
         setProject({...project, dev: user.id,client:clientId})
         console.log(clientId)
-    }, [clientId, data, dispatch, project, user.id]);
+    }, [clientId]);
 
     return (
         <div>

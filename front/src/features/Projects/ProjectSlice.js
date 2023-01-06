@@ -1,8 +1,8 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import projectService from "../../Services/projects.services";
-import {fetchClient, setClients} from "../Client/ClientSlice";
+import {fetchClient} from "../Client/ClientSlice";
 import {useSelector} from "react-redux";
-import {fetchAllInvoices} from "../Invoice/InvoiceSlice";
+
 
 const projects = localStorage.getItem("projects")
 const initialState = projects ? {projects} : {
@@ -13,7 +13,7 @@ export const fetchProjectsByUserId = createAsyncThunk(
     async (userid, thunkAPI) => {
         try {
             const response = await projectService.fetchProjectsByUserId(userid);
-            thunkAPI.dispatch(fetchClient(userid))
+       //     thunkAPI.dispatch(fetchClient(userid))
             return response;
         } catch (error) {
             const message =
