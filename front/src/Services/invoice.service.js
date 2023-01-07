@@ -1,5 +1,12 @@
 import axios from "axios";
 
+const API_URL = "http://127.0.0.1:8000/api/";
+const config = {
+    headers: {
+        'Content-Type': 'application/json'
+    }
+};
+
 const fetchUserInvoice = async (userId) => {
     const invoice = {id: "", hour_spend: "", invoice_value: ""}
     const invoices = []
@@ -21,4 +28,19 @@ const fetchUserInvoice = async (userId) => {
             return invoices
         });
 };
-export const invoiceService = {fetchUserInvoice}
+
+const getInvoiceById = (id) => {
+    return axios
+        .get(API_URL + "invoices/" + id + "/")
+        .then((response) => {
+            const invoice=response.data
+            return invoice
+        });
+};
+
+const invoiceService = {
+    fetchUserInvoice,
+    getInvoiceById
+}
+
+export default invoiceService

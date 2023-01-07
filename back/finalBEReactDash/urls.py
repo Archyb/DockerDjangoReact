@@ -45,6 +45,7 @@ router.register(r'projects', ProjectViewSet).register(r'client', ClientViewSet, 
 router.register(r'invoices', InvoiceViewSet).register(r'project', ProjectViewSet, basename='invoice-project',
                                                       parents_query_lookups=['id'])
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),

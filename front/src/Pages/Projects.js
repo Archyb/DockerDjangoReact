@@ -11,42 +11,54 @@ import DialogClientDataModal from "../Components/Clients/ClientDataModal";
 import {fetchClientInUse, getClientByid, setClientInUse} from "../features/Client/ClientSlice";
 import clientServices from "../Services/client.services";
 import {invoiceService} from "../Services/invoice.service";
+import {fetchInvoiceById, invoiceSlice} from "../features/Invoice/InvoiceSlice";
 
 
 const mapStateToProps = (state) => {
     return {
         user: state.auth.user,
-        projects: state.project.projects
+        projects: state.project.projects,
+        project: state.project.projectInUse,
+        client: state.client.clientInUse
     }
 }
 const Projects = (props) => {
+
     const [projects, setProjects] = useState([])
+    const [project, setProject] = useState({})
+    const [client, setClient] = useState({})
+
     const [openInvoicemodal, setOpenInvoiceModal] = useState(false)
     const[openClientModal, setOpenClientModal] = useState(false)
-    const projectInUse=useSelector(state=>state.project.projectInUse);
-    const currentClient =useSelector(state=>state.client.clientInUse)
-    const[invoiceInUse, setInvoiceInUse]=useState({})
-    const [client, setClient] = useState({})
+
+
+
     const dispatch = useDispatch()
+
     const handleOpenModalForm = () => {
         setAddProject(true)
     }
+
     const handleOpenInvoice = () => {
         setOpenInvoiceModal(true)
+        setProject(props.project)
+        dispatch(fetchInvoiceById(props.project.invoice))
     }
 
     //use selector user id
     const handleOpenClient = () => {
         setOpenClientModal(true)
-        dispatch(getClientByid(15));
+        setClient(props.client);
     }
+
     const [addProject, setAddProject] = useState(false)
     useEffect(() => {
         setProjects(props.projects)
-        setClient(currentClient)
     }, [props.projects])
 
-    console.log(currentClient)
+    //console.log(currentClient)
+    //console.log(projects)
+    //console.log(props.project)
     return (
 
         <Grid container spacing={4}>
@@ -64,7 +76,7 @@ const Projects = (props) => {
             <Grid item xs={6}>
                 <Paper sx={{p: 10, display: 'flex', flexDirection: 'column'}}>
                     <Button variant="contained" color="primary" onClick={handleOpenInvoice}>Check Invoice</Button>
-                    <DialogInvoice open={openInvoicemodal} setOpen={setOpenInvoiceModal}/>
+                    <DialogInvoice open={openInvoicemodal} setOpen={setOpenInvoiceModal} project={project} />
                 </Paper>
             </Grid>
             <Grid item xs={6}>

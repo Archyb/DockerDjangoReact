@@ -19,14 +19,12 @@ const DialogClientDataModal= (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-
     };
 
 
     const handleChange = (event) => {
-
     };
+    
     const handleClose = () => {
         props.setOpen(false);
     };

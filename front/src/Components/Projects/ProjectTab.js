@@ -1,6 +1,6 @@
 import GridGenric from "../GridGenric";
 import Button from "@mui/material/Button";
-import {DataGrid, GridColDef, GridToolbar} from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, GridColDef} from "@mui/x-data-grid";
 
 import {useEffect, useState} from "react";
 import ClientServices from "../../Services/client.services";
@@ -58,12 +58,8 @@ const ProjectTab = (props) => {
             width:600,
             editable: false,
         },
-
-
     ];
     return (
-
-
         <Container style={{height:500, width: '100%'}}>
 
             <DataGrid components={{Toolbar: GridToolbar}}

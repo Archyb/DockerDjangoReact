@@ -38,7 +38,7 @@ const DialogInvoice = (props) => {
 
                 <DialogContent>
 
-                    <InvoiceTimer/>
+                    <InvoiceTimer project={props.project}/>
 
 
                 </DialogContent>

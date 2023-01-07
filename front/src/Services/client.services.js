@@ -77,5 +77,7 @@ const fetchClientsByUserId = (userid) => {
 
 
 };
-const ClientServices = {addClientDb, getCLientById, fetchClientsByUserId, getAllClients}
+const ClientServices = {addClientDb, getCLientById, fetchClientsByUserId, getAllClients};
+
+
 export default ClientServices

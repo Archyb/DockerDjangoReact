@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {invoiceService} from "../../Services/invoice.service";
+import invoiceService from "../../Services/invoice.service";
 
 const initialState = {
-    invoices: [],
+    invoices: [], invoice: []
 }
 
 export const fetchAllInvoices = createAsyncThunk(
@@ -18,6 +18,16 @@ export const fetchAllInvoices = createAsyncThunk(
         }
     }
 )
+
+export const fetchInvoiceById = createAsyncThunk("invoice/getInvoiceById", async (projectID, thunkAPI) => {
+    try {
+        const response = await invoiceService.getInvoiceById(projectID);
+        return response;
+    } catch (error) {
+        return thunkAPI.rejectWithValue("not found");
+    }
+})
+
 export const invoiceSlice = createSlice(
     {
         name: "invoice",
@@ -43,6 +53,11 @@ export const invoiceSlice = createSlice(
                 .addCase(fetchAllInvoices.fulfilled, (state, action) => {
                     state.invoices = action.payload;
                 })
+                .addCase(fetchInvoiceById.fulfilled, (state, action) => {
+                    state.invoice = action.payload;  
+                })
         }
     })
+
+    export const {addInvoice, deleteInvoice, updateInvoice} = invoiceSlice.actions;
 

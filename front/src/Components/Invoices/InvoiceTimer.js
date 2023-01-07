@@ -4,6 +4,9 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import {useEffect, useState} from "react";
 import Typography from "@mui/material/Typography";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchInvoiceById, invoiceSlice} from "../../features/Invoice/InvoiceSlice";
+
 
 
 const InvoiceTimer = (props) => {
@@ -14,12 +17,13 @@ const InvoiceTimer = (props) => {
     const [isActive, setIsActive] = useState(false);
     const [isPaused, setIsPaused] = useState(true);
     const [time, setTime] = useState(0);
+    const invoice = useSelector(state => state.invoice.invoice)
 
     useEffect(() => {
         let interval = null;
         if (isActive && isPaused === false) {
             interval = setInterval(() => {
-                setTime((time) => time + 10);
+                setTime((time) => time + 1);
             }, 1000);
         } else {
             clearInterval(interval);
@@ -42,9 +46,28 @@ const InvoiceTimer = (props) => {
         setIsActive(false);
         setTime(0);
     };
+
+    const handleAddCurrentInvoice = () => {
+        const newInvoice = {
+            ...invoice,
+            hour_spend: invoice.hour_spend + time
+        }
+        console.log(newInvoice)
+        invoiceSlice.updateInvoice(newInvoice)
+    }
+
+
     return (
         <Paper>
         <span>
+        <Typography variant="h6">
+             Temps accumulé sur le projet : {props.project.name}
+        </Typography>
+        <Typography variant="h2">
+            <span>{("0" + Math.floor(invoice.hour_spend / 3600)).slice(-2)}:</span>
+            <span>{("0" + Math.floor((invoice.hour_spend % 3600) / 60)).slice(-2)}:</span>
+            <span>{("0" + Math.floor(invoice.hour_spend % 60)).slice(-2)}</span>
+        </Typography>
             <Typography variant="h2">
             <IconButton>
                 <Button variant="contained" color="success" style={ButtonStyle}
@@ -60,16 +83,18 @@ const InvoiceTimer = (props) => {
                             onClick={handleReset}>Reset</Button>
                 </Paper>
             </IconButton>
+            </Typography>
 
-
-                <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-                <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-                <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+            
+            <Typography variant="h3">
+                <span>{("0" + Math.floor(time / 3600)).slice(-2)}:</span>
+                <span>{("0" + Math.floor((time % 3600) / 60)).slice(-2)}:</span>
+                <span>{("0" + Math.floor(time % 60)).slice(-2)}</span>
             </Typography>
             <IconButton>
                 <Paper>
                     <Button variant="outlined" color="error" style={ButtonStyle}
-                            onClick={handleReset}>add Current Invoice</Button>
+                            onClick={handleAddCurrentInvoice}>add Current Invoice</Button>
                 </Paper>
             </IconButton>
               <IconButton>
