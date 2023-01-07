@@ -1,10 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-
 import ClientServices from "../../Services/client.services";
-import {login} from "../User/AuthSlice";
-import projectService from "../../Services/projects.services";
-import clientServices from "../../Services/client.services";
-
 
 const initialState = {clients: [], clientInUse: {}, allClients: []};
 
@@ -12,11 +7,7 @@ export const addClient = createAsyncThunk("client/AddClient",
     async (client, thunkAPI) => {
         try {
             const response = await ClientServices.addClientDb(client);
-            if (response.status === 200) {
-
-                return response.data;
-            }
-            return response.data;
+            return response
         } catch (error) {
             return thunkAPI.rejectWithValue();
         }
@@ -63,7 +54,7 @@ export const clientSlice = createSlice(
                 state.clientInUse = {}
             },
             addClientState(state, action) {
-                state.clients.push(action.payload)
+
             },
             getClientByid(state, action) {
                 state.clientInUse = state.allClients.filter(client => client.id === action.payload)[0]
@@ -75,11 +66,15 @@ export const clientSlice = createSlice(
             builder
                 .addCase(fetchClient.fulfilled, (state, action) => {
                     state.clients = action.payload
-                }).addCase(addClient.fulfilled, (state, action) => {
+                })
+                .addCase(getAllClients.fulfilled, (state, action) => {
+                    state.allClients = action.payload
+                })
+                .addCase(addClient.fulfilled, (state, action) => {
+                    state.allClients.push(action.payload)
+                })
 
-                }).addCase(getAllClients.fulfilled, (state, action) => {
-                state.allClients = action.payload
-            })
+
 
 
         }

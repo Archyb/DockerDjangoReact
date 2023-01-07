@@ -7,44 +7,28 @@ export const clientColumns: GridColDef[] = [
     {
         field: 'firstname',
         headerName: 'First name',
-        width: 160,
+        width: 200,
         editable: false,
     },
     {
         field: 'lastname',
         headerName: 'Last name',
-        width: 160,
+        width: 200,
         editable: false,
     },
     {
         field: 'mail',
         headerName: 'Mail',
-        type: 'mail',
-        width: 160,
+        width: 300,
         editable: false,
-        renderCell: (params) => (
-            <a href={`${params.value}`}>{params.value}</a>
-        )
-    },
 
-    {
-        field: 'urls',
-        headerName: 'Projects',
-        type: 'Tel',
-        width: 160,
-
-        renderCell: (params) => (
-            <Button variant="outlined"href={`${params.value}`}>Project</Button>
-        )
     },
     {
-        field: 'projects',
-        headerName: 'Projects',
-        type: 'Tel',
-        width: 160,
+        field: 'tel',
+        headerName: 'Phone',
 
-        renderCell: (params) => (
-            <Button variant="contained" href={`${params.value}`}>Facture</Button>
-        )
+        width: 200,
+        editable: false,
+
     }
 ];

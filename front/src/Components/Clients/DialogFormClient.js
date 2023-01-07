@@ -10,17 +10,16 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {addClient, addClientState, fetchClient} from "../../features/Client/ClientSlice";
+import {addClient, addClientState} from "../../features/Client/ClientSlice";
 
 
 export default function DialogFormClient(props) {
 
     const dispatch = useDispatch();
     const handleSubmit = (event) => {
-        event.preventDefault();
-        dispatch(addClient(client))
-        dispatch(fetchClient())
 
+        dispatch(addClient(client))
+        props.setOpen(false)
 
     };
 

@@ -42,7 +42,7 @@ const getAllClients = async () => {
                     firstname: i.firstname,
                     lastname: i.lastname,
                     mail: i.mail,
-                    tel: i.tel,
+                    tel: i.Tel,
                     url: i.url,
                 }
                 clients.push(client);

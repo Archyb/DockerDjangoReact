@@ -11,9 +11,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-
-import {useDispatch, useSelector} from "react-redux";
 import {Register} from "../Services/auth.services";
 import {useEffect} from "react";
 
@@ -111,12 +108,6 @@ export default function SignUp() {
                                 type="password"
                                 id="password"
                                 autoComplete="new-password"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary"/>}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
                             />
                         </Grid>
                     </Grid>

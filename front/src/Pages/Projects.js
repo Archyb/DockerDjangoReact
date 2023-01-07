@@ -9,8 +9,7 @@ import DialogFormProject from "../Components/Projects/DialogFormProject";
 import DialogInvoice from "../Components/Invoices/DialogInvoice";
 import DialogClientDataModal from "../Components/Clients/ClientDataModal";
 import {fetchClientInUse, getClientByid, setClientInUse} from "../features/Client/ClientSlice";
-import clientServices from "../Services/client.services";
-import {invoiceService} from "../Services/invoice.service";
+
 
 
 const mapStateToProps = (state) => {
@@ -25,7 +24,6 @@ const Projects = (props) => {
     const[openClientModal, setOpenClientModal] = useState(false)
     const projectInUse=useSelector(state=>state.project.projectInUse);
     const currentClient =useSelector(state=>state.client.clientInUse)
-    const[invoiceInUse, setInvoiceInUse]=useState({})
     const [client, setClient] = useState({})
     const dispatch = useDispatch()
     const handleOpenModalForm = () => {
@@ -38,15 +36,17 @@ const Projects = (props) => {
     //use selector user id
     const handleOpenClient = () => {
         setOpenClientModal(true)
-        dispatch(getClientByid(15));
+        if(currentClient){
+            setClient(currentClient)
+
+        }
+
     }
     const [addProject, setAddProject] = useState(false)
     useEffect(() => {
         setProjects(props.projects)
         setClient(currentClient)
     }, [props.projects])
-
-    console.log(currentClient)
     return (
 
         <Grid container spacing={4}>

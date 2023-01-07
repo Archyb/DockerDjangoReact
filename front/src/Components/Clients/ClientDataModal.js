@@ -1,15 +1,12 @@
 import Dialog from "@mui/material/Dialog";
-
 import DialogContent from "@mui/material/DialogContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import * as React from "react";
-import {useDispatch, useSelector} from "react-redux";
 import Divider from "@mui/material/Divider";
-import {useEffect} from "react";
+
 
 
 
@@ -20,24 +17,17 @@ const DialogClientDataModal= (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-
-    };
-
-
-    const handleChange = (event) => {
-
+        handleClose()
     };
     const handleClose = () => {
         props.setOpen(false);
     };
 
 
-    console.log(props.client)
-
     return (
         <div>
 
-            <Dialog open={props.open} onClose={handleClose} fullScreen={true}>
+            <Dialog open={props.open} onClose={handleClose} >
 
                 <DialogContent>
 
@@ -71,15 +61,14 @@ const DialogClientDataModal= (props) => {
                     <Grid sm={12} sx={{mt: 3}}>
                         <Typography variant="subtitle1" component="div">
                             Phone</Typography>
-                        {props.client.phone}
+                        {props.client.tel}
                     </Grid>
                 </Grid>
 
 
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Save</Button>
+                    <Button onClick={handleSubmit}>Close</Button>
                 </DialogActions>
             </Dialog>
         </div>)

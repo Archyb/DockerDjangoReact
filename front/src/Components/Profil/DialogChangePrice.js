@@ -4,12 +4,11 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import {connect, useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import { useDispatch, useSelector} from "react-redux";
+import { useState} from "react";
 import { modifyPrice, modifyUser} from "../../features/User/AuthSlice";
 
 

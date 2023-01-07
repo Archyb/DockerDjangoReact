@@ -1,5 +1,4 @@
 import IconButton from "@mui/material/IconButton";
-import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import {useEffect, useState} from "react";
@@ -63,8 +62,8 @@ const InvoiceTimer = (props) => {
 
 
                 <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-                <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-                <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+                <span>{("0" + Math.floor((time / 600) % 60)).slice(-2)}:</span>
+                <span>{("0" + ((time / 10) % 60)).slice(-2)}</span>
             </Typography>
             <IconButton>
                 <Paper>
