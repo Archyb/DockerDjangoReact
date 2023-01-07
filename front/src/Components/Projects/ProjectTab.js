@@ -1,6 +1,5 @@
-import GridGenric from "../GridGenric";
-import Button from "@mui/material/Button";
-import { DataGrid, GridToolbar, GridColDef} from "@mui/x-data-grid";
+
+import {DataGrid, GridColDef, GridToolbar} from "@mui/x-data-grid";
 
 import {useEffect, useState} from "react";
 import ClientServices from "../../Services/client.services";

@@ -11,7 +11,6 @@ export const fetchAllInvoices = createAsyncThunk(
         try {
 
             const response = await invoiceService.fetchUserInvoice(userID)
-            console.log(response)
             return response
         } catch (error) {
             return thunkAPI.rejectWithValue(error);

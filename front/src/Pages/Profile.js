@@ -1,15 +1,12 @@
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
 import {connect} from "react-redux";
 import Divider from "@mui/material/Divider";
-import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
 import DialogChangeProfile from "../Components/Profil/DialogChangeProfile";
 import DialogChangePrice from "../Components/Profil/DialogChangePrice";
 import DialogChangePassword from "../Components/Profil/DialogChangePassword";
-import ProfilCharts from "../Components/Profil/ProfilCharts";
 import {useSelector} from 'react-redux'
 import Box from "@mui/material/Box";
 
@@ -23,31 +20,6 @@ const Profile = (props) => {
     const [changeUserInfo, setChangeUserInfo] = useState(false)
     const [changePassword, setChangePassword] = useState(false)
     const user = useSelector((state) => state.auth.user)
-
-    function stringToColor(string: string) {
-        let hash = 0;
-        let i;
-        for (i = 0; i < string.length; i += 1) {
-            hash = string.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        let color = '#';
-        for (i = 0; i < 3; i += 1) {
-            const value = (hash >> (i * 8)) & 0xff;
-            color += `00${value.toString(16)}`.slice(-2);
-        }
-        return color;
-    }
-
-//faire une requete axios put
-    function stringAvatar(name: string) {
-
-        return {
-            sx: {
-                bgcolor: stringToColor(name),
-            },
-            children: `${name.split(' ')[0][0]}${name.split('')[1][0]}`,
-        };
-    }
 
     const handleOpenChangeInfoModalForm = () => {
         setChangeUserInfo(true)

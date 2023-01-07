@@ -6,7 +6,6 @@ const config = {
         'Content-Type': 'application/json'
     }
 };
-//export put request to url dev for register a new user
 export const Register = newUser => {
     const register=true;
     const error=false;

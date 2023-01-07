@@ -1,8 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import projectService from "../../Services/projects.services";
-
-import {useSelector} from "react-redux";
-import {getClientByid, setClientInUse} from "../Client/ClientSlice";
+import {getClientByid} from "../Client/ClientSlice";
 
 
 const initialState = {
@@ -49,7 +47,9 @@ export const projectSlice = createSlice(
             builder
                 .addCase(fetchProjectsByUserId.fulfilled, (state, action) => {
                     state.projects = action.payload;
-                })
+                }).addCase(fetchProjectsByUserId.rejected, (state, action) => {
+                console.log("error")
+            })
                 .addCase(addProject.fulfilled, (state, action) => {
                     state.projects.push(action.payload);
                 })

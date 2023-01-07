@@ -1,5 +1,4 @@
 import Dialog from "@mui/material/Dialog";
-
 import DialogContent from "@mui/material/DialogContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -9,8 +8,6 @@ import Button from "@mui/material/Button";
 import * as React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-
-
 import DataTable from "./TableClientProject";
 import {getAllClients} from "../../features/Client/ClientSlice";
 import {addProject, fetchProjectsByUserId} from "../../features/Projects/ProjectSlice";
@@ -28,7 +25,7 @@ const DialogFormProject = (props) => {
 
         setProject({...project, client: clientId})
         dispatch(addProject(project));
-        dispatch(fetchProjectsByUserId(user.id));
+
         props.setOpen(false);
 
     };

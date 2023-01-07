@@ -14,7 +14,6 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MoreTimeIcon from "@mui/icons-material/ShoppingCart";
@@ -26,8 +25,10 @@ import {clearState} from "../features/User/AuthSlice";
 import {Outlet, useNavigate} from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
 import CodeIcon from "@mui/icons-material/Dashboard";
-import {ListItem} from "@mui/material";
-
+import {Switch} from "@mui/material";
+import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
+import {useState} from "react";
+import {orange} from "@mui/material/colors";
 
 const drawerWidth = 240;
 
@@ -75,11 +76,16 @@ const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})
     }),
 );
 
-const mdTheme = createTheme();
+const themeDark = createTheme({palette: {primary:orange,mode: "dark"},});
+const themeLight = createTheme({palette: {mode: "light"}})
 
-function DashboardContent() {
+function DashboardContent(props) {
     const navigate = useNavigate();
+    const [theme, setTheme] = useState(true)
 
+    const toogleTheme = () => {
+        setTheme(!theme)
+    }
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -105,7 +111,7 @@ function DashboardContent() {
         },
     ];
     return (
-        <ThemeProvider theme={mdTheme}>
+        <ThemeProvider  theme={theme==false?themeDark:themeLight}>
             <Box sx={{display: 'flex'}}>
                 <CssBaseline/>
                 <AppBar position="absolute" open={open}>
@@ -135,6 +141,7 @@ function DashboardContent() {
                         >
                             Dashboard
                         </Typography>
+                        <Switch sx={{ml:2}} onChange={toogleTheme} icon={<NightsStayOutlinedIcon color={"warning"}/>}/>
                         <IconButton color="inherit">
                             <Badge  color="secondary" onClick={()=>navigate("Profile")}>
                                 <AccountCircleIcon/>
@@ -172,9 +179,9 @@ function DashboardContent() {
                         })}
 
                         <Divider sx={{my: 1}}/>
-                        <ListItemButton component={Link} to="/" onClick={dispatch(clearState)}>
+                        <ListItemButton component={Link} to="/" >
                             <ListItemIcon>
-                                <LogoutIcon/>
+                                <LogoutIcon onClick={dispatch(clearState)}/>
                             </ListItemIcon>
                             <ListItemText primary="Disconnect"/>
                         </ListItemButton>

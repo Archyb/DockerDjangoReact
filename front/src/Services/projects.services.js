@@ -12,7 +12,7 @@ const fetchProjectsByUserId = (userid) => {
     const projects = [];
 
     return axios
-        .get(API_URL + "fetchproject?dev=15",)
+        .get(API_URL + "fetchproject?dev="+userid,)
         .then((response) => {
             response.data.map((i) => {
                 const project = {
@@ -23,7 +23,6 @@ const fetchProjectsByUserId = (userid) => {
                     isOver: i.isOver,
                 }
                 projects.push(project);
-                console.log(project)
             });
             return projects
         });
