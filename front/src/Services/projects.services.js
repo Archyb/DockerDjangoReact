@@ -8,7 +8,6 @@ const config = {
 };
 
 const fetchProjectsByUserId = (userid) => {
-    let project = {id: "", name: "", description: "", technology: "", isOver: ""};
     const projects = [];
 
     return axios

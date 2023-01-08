@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 
-from api import views
-from api.views import InvoiceViewSet, ProjectViewSet, ClientViewSet, DevViewSet, AuthViewSet, DevProjectViewSet, \
-    DevClientProjectInvoiceViewSet, GetClientByDevViewSet, CreateClientView, CreateProjectView, GetInvoiceByDevViewSet
+
+from api.views import InvoiceViewSet, ProjectViewSet, ClientViewSet, DevViewSet, AuthViewSet, DevProjectViewSet, DevClientProjectInvoiceViewSet, GetClientByDevViewSet, CreateClientView, CreateProjectView, GetInvoiceByDevViewSet,StatsView
+
+
 
 router = ExtendedSimpleRouter()
 
@@ -28,8 +29,7 @@ router.register(r'fetchproject', DevProjectViewSet)
 router.register(r'fetchuserclient', GetClientByDevViewSet)
 router.register(r'fetchuserdata', DevClientProjectInvoiceViewSet)
 
-router.register(r'fetchinvoices',GetInvoiceByDevViewSet)
-
+router.register(r'fetchinvoices', GetInvoiceByDevViewSet)
 
 router.register(r'devs', DevViewSet).register(r'projects', ProjectViewSet, basename='project-group',
                                               parents_query_lookups=['client_id'])
@@ -49,8 +49,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('api/client/create',CreateClientView.as_view()),
-    path('api/project/create',CreateProjectView.as_view()),
-
+    path('api/client/create', CreateClientView.as_view()),
+    path('api/project/create', CreateProjectView.as_view()),
+    path('api/stats', StatsView.as_view()),
 
 ]
