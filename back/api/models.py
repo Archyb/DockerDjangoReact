@@ -35,7 +35,8 @@ class Client(models.Model):
 class Invoice(models.Model):
     hour_spend = models.IntegerField(default=0)
     invoice_value = models.FloatField(default=0)
-
+    depth:1
+    
     class JSONAPIMeta:
         resource_name = "Invoice"
 
@@ -48,3 +49,6 @@ class Project(models.Model):
     dev = models.ForeignKey(to=Dev, on_delete=models.CASCADE)
     client = models.ForeignKey(to=Client, on_delete=models.CASCADE)
     invoice = models.OneToOneField(Invoice, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.name

@@ -41,11 +41,13 @@ const Profile = (props) => {
     const [stats, setStats] = useState({})
     const data = Object.values(stats)
     const legend = Object.keys(stats)
-
+    const [pict,setPitc]=useState(0)
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-
+    const handlePicture=()=>{
+    setPitc(pict+1)
+    }
     useEffect(() => {
         axios.get('https://xsgames.co/randomusers/avatar.php?g=male')
             .then(res => {
@@ -55,7 +57,7 @@ const Profile = (props) => {
             setStats(r.data)
         })
 
-    }, [user])
+    }, [user,pict])
     return (
         <Grid sx={{ m: 0 }} display={"flex"} direction="row" alignItems={"start"}>
             <Grid item xs={3} height={750} pt={3} sx={{ p: 2, }} minWidth={110}>
@@ -78,7 +80,7 @@ const Profile = (props) => {
                     <DialogChangePrice open={changePrice} setOpen={setChangePrice} />
                     <Button  color={"secondary"} onClick={handleOpenPasswordModalForm}sx={{ borderColor: "primary" ,display:"block"}}fullWidth={true}>Password</Button >
                     <DialogChangePassword open={changePassword} setOpen={setChangePassword} />
-                    <Button  sx={{ borderColor: "primary" ,display:"block"}}fullWidth={true} >Picture</Button >
+                    <Button  sx={{ borderColor: "primary" ,display:"block"}}fullWidth={true} onClick={handlePicture} >Picture</Button >
                     <Divider sx={{ mt: 4 }} />
                 </Paper>
             </Grid>
