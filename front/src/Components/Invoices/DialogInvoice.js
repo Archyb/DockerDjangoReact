@@ -8,10 +8,7 @@ import InvoiceTimer from "./InvoiceTimer";
 
 
 const DialogInvoice = (props) => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
 
-    };
 
     const handleClose = () => {
         props.setOpen(false);
@@ -30,7 +27,6 @@ const DialogInvoice = (props) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Save</Button>
                 </DialogActions>
             </Dialog>
         </div>)

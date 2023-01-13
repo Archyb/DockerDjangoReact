@@ -33,7 +33,6 @@ export const modifyUser = createAsyncThunk("auth/modifyUser", async (user, thunk
 });
 export const logout = createAsyncThunk("auth/logout", async () => {
     await AuthService.logout();
-
 });
 
 const initialState = {isLoggedIn: false, user: null};

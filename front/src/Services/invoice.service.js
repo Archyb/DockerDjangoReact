@@ -8,9 +8,7 @@ const config = {
 };
 
 const fetchUserInvoice = async (userId) => {
-    const invoice = {id: "", hour_spend: "", invoice_value: ""}
     const invoices = []
-
 
     return axios
         .get('http://127.0.0.1:8000/api/fetchinvoices?dev=' + userId,)
@@ -22,8 +20,6 @@ const fetchUserInvoice = async (userId) => {
                     id: i.id
                 }
                 invoices.push(invoice)
-
-
             });
             return invoices
         });
@@ -42,5 +38,20 @@ const invoiceService = {
     fetchUserInvoice,
     getInvoiceById
 }
+
+export const modifyInvoice = (invoice) => {
+
+    const inv = {
+        hour_spend: invoice.hour_spend,
+        invoice_value: invoice.invoice_value,
+    }
+
+    return axios
+        .put(API_URL + "invoices/" + invoice.id + "/",inv)
+        .then((response) => {
+            console.log(response)
+        })
+}
+
 
 export default invoiceService

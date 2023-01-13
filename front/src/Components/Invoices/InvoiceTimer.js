@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import {useEffect, useState} from "react";
 import Typography from "@mui/material/Typography";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchInvoiceById, invoiceSlice} from "../../features/Invoice/InvoiceSlice";
+import {modifyTime, modifyInvoice} from "../../features/Invoice/InvoiceSlice";
 
 
 
@@ -16,7 +16,9 @@ const InvoiceTimer = (props) => {
     const [isActive, setIsActive] = useState(false);
     const [isPaused, setIsPaused] = useState(true);
     const [time, setTime] = useState(0);
-    const invoice = useSelector(state => state.invoice.invoice)
+    const invoice = useSelector((state) => state.invoice.invoice)
+    const userStore = useSelector((state) => state.auth.user)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         let interval = null;
@@ -47,12 +49,16 @@ const InvoiceTimer = (props) => {
     };
 
     const handleAddCurrentInvoice = () => {
+    
         const newInvoice = {
             ...invoice,
-            hour_spend: invoice.hour_spend + time
+            id : invoice.id,
+            hour_spend: invoice.hour_spend + time,
+            invoice_value: parseFloat(invoice.hour_spend * userStore.price)
         }
-        console.log(newInvoice)
-        invoiceSlice.updateInvoice(newInvoice)
+        dispatch(modifyTime(time))
+        dispatch(modifyInvoice(newInvoice))
+        setTime(0)
     }
 
 

@@ -34,7 +34,6 @@ const DialogChangePrice = (props) => {
 
     return (
         <div>
-
             <Dialog open={props.open} onClose={handleClose}>
                 <DialogTitle>Change your price per hour</DialogTitle>
                 <DialogContent>
@@ -42,7 +41,6 @@ const DialogChangePrice = (props) => {
                         Current price: {userStore.price}
                     </Typography>
                     <Grid container spacing={2}>
-
                         <Grid item xs={6} sm={6}>
                             <TextField
                                 required
@@ -55,8 +53,6 @@ const DialogChangePrice = (props) => {
 
                             />
                         </Grid>
-
-
                     </Grid>
                 </DialogContent>
                 <DialogActions>

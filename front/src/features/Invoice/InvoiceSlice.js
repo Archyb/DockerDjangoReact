@@ -18,6 +18,16 @@ export const fetchAllInvoices = createAsyncThunk(
     }
 )
 
+export const modifyInvoice = createAsyncThunk("invoice/modifyInvoice", async (invoice, thunkAPI) => {
+    try {
+        const data = await invoiceService.modifyInvoice(invoice);
+        return data
+
+    } catch (error) {
+        return thunkAPI.rejectWithValue();
+    }
+});
+
 export const fetchInvoiceById = createAsyncThunk("invoice/getInvoiceById", async (projectID, thunkAPI) => {
     try {
         const response = await invoiceService.getInvoiceById(projectID);
@@ -46,6 +56,9 @@ export const invoiceSlice = createSlice(
                     return invoice;
                 });
             },
+            modifyTime: (state, action) => {
+                state.invoice.time = action.payload;
+            },
         },
         extraReducers(builder) {
             builder
@@ -55,8 +68,16 @@ export const invoiceSlice = createSlice(
                 .addCase(fetchInvoiceById.fulfilled, (state, action) => {
                     state.invoice = action.payload;  
                 })
+                .addCase(modifyInvoice.fulfilled, (state, action) => {
+                    state.invoices = state.invoices.map((invoice) => {
+                        if (invoice.id === action.payload.id) {
+                            return action.payload;
+                        }
+                        return invoice;
+                    });
+                })
         }
     })
 
-    export const {addInvoice, deleteInvoice, updateInvoice} = invoiceSlice.actions;
+    export const {addInvoice, deleteInvoice, updateInvoice, modifyTime} = invoiceSlice.actions;
 
